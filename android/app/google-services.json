@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "450527461724",
+    "project_id": "getdeals-766d6",
+    "storage_bucket": "getdeals-766d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450527461724:android:e4b721aa02dd90dae10199",
+        "android_client_info": {
+          "package_name": "com.takwinat.getdealss"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "450527461724-man6locnahe1vgc8bdvvb98spqqqbe7j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.takwinat.getdealss",
+            "certificate_hash": "c64244d59797f1631e912feceb0575d594ca6702"
+          }
+        },
+        {
+          "client_id": "450527461724-svtcnmhucpt0cf525u8vvbev82bb0726.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_-AL7M1GPCJD23cnUWS9R6Rjj0QqjcYg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "450527461724-svtcnmhucpt0cf525u8vvbev82bb0726.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
