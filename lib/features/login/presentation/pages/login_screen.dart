@@ -20,11 +20,10 @@ import '../../../register/presentation/pages/register_screen.dart';
 import '../cubit/login_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
-
+  LoginScreen({super.key});
+  var controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    var controller = TextEditingController();
     var formLoginKey = GlobalKey<FormState>();
     var digit1Controller = TextEditingController();
     var digit2Controller = TextEditingController();
@@ -64,7 +63,10 @@ class LoginScreen extends StatelessWidget {
               LoginCubit.get(context).getUserData();
             }
             if (state is UserExistState) {
-              navigateTo(context, MainHomeScreen(user: state.userData));
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (context) => MainHomeScreen(user: state.userData),
+              ));
+              // navigateTo(context, MainHomeScreen(user: state.userData));
             }
             if (state is UserNotExistState) {
               navigateTo(context, RegisterScreen());
@@ -181,9 +183,11 @@ class LoginScreen extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          '${'otp'.tr(context)}+2${controller.text}',
-                                          style: txtDrawerbase516TitlesText(),
+                                        Expanded(
+                                          child: Text(
+                                            '${'otp'.tr(context)}+966${controller.text}',
+                                            style: txtDrawerbase516TitlesText(),
+                                          ),
                                         ),
                                         OutlinedButton(
                                           child: Text(

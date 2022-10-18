@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,7 +29,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   late UserModel userModel;
   bool notOtp = true;
   bool notOtp2 = true;
-
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
   final List<String> interests = [
     'Applications',
     'E-Commerce',
@@ -51,7 +54,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     emit(RegisterLoadingState());
 
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: '+2$phoneNumber',
+      phoneNumber: '+966$phoneNumber',
       timeout: const Duration(seconds: 14),
       verificationCompleted: verificationCompleted,
       verificationFailed: verificationFailed,
@@ -119,12 +122,20 @@ class RegisterCubit extends Cubit<RegisterState> {
         .get();
 
     if (doc.exists) {
-      emit(UserStartExistState());
-      userModel = UserModel.fromJson(doc.data()!);
-      emit(UserExistState());
+      String? token = await messaging.getToken();
+      modelRef.update({'token': token}).whenComplete(() {
+        emit(UserStartExistState());
+        userModel = UserModel.fromJson(doc.data()!);
+        userModel.interests?.split('--').forEach((element) async {
+          // subscribe to topic on each app start-up
+          print('==================+===============$element');
+          await FirebaseMessaging.instance.subscribeToTopic(element);
+        });
+        emit(UserExistState());
+      });
     } else {
       emit(AddingNewUserLoadingState());
-
+      String? token = await messaging.getToken();
       await modelRef
           .set(
         UserModel(
@@ -134,15 +145,21 @@ class RegisterCubit extends Cubit<RegisterState> {
           age: age,
           gender: gender,
           city: city,
+          token: token,
           phoneNumber: phoneNumber,
-          interests: selectedInterests!.join('-').toString(),
+          interests: selectedInterests!.join('--').toString(),
           photo:
-              'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=740&t=st=1664406514~exp=1664407114~hmac=65601c6244a0fff286768e8478538fd8c74314cebe7961a242157d38a36a461c',
+              'https://firebasestorage.googleapis.com/v0/b/getdeals-766d6.appspot.com/o/defaultuserphoto%2F6769264_60111.jpg?alt=media&token=1b9e730e-e94b-451d-9fc7-7fd5f79eb4d0',
           userKind: 0,
         ),
       )
           .then((value) async {
         userModel = await modelRef.get().then((value) => value.data()!);
+        userModel.interests?.split('--').forEach((element) async {
+          // subscribe to topic on each app start-up
+          print('==================+===============$element');
+          await FirebaseMessaging.instance.subscribeToTopic(element);
+        });
         emit(AddingNewUserSuccessState());
       }).catchError((onError) {
         emit(AddingNewUserErrorState(errorMsg: onError));
@@ -170,9 +187,12 @@ class RegisterCubit extends Cubit<RegisterState> {
         .get();
 
     if (doc.exists) {
-      emit(UserStartExistState());
-      userModel = UserModel.fromJson(doc.data()!);
-      emit(UserExistState());
+      String? token = await messaging.getToken();
+      modelRef.update({'token': token}).whenComplete(() {
+        emit(UserStartExistState());
+        userModel = UserModel.fromJsonServiceProvider(doc.data()!);
+        emit(UserExistState());
+      });
     } else {
       emit(AddingNewUserLoadingState());
 
@@ -188,6 +208,7 @@ class RegisterCubit extends Cubit<RegisterState> {
             phoneNumber: phoneNumber,
             interests: 'Freelance',
             hourPrice: costHour,
+            token: await messaging.getToken(),
             photo:
                 'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=740&t=st=1664406514~exp=1664407114~hmac=65601c6244a0fff286768e8478538fd8c74314cebe7961a242157d38a36a461c',
             experienceYears: experienceYears,

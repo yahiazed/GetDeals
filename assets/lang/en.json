@@ -126,5 +126,12 @@
     "notify": "Notification",
     "support": "Technical Support",
     "orders": "orders",
-    "Send To Owner To Get Permission": "Send To Owner To Get Permission"
+    "Send To Owner To Get Permission": "Send To Owner To Get Permission",
+    "Need A Permission To Get": "Need A Permission To Get",
+    "Files": "Files",
+    "Accept": "Accept",
+    "Refuse": "Refuse",
+    "Accept To Get Project Files": "Accept To Get Project Files",
+    "Reject To Get Project Files": "Reject To Get Project Files",
+    "No Project You Explore Yet!!": "No Project You Explore Yet!!"
 }

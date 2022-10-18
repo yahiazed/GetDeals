@@ -39,88 +39,98 @@ class MainHomeScreen extends StatelessWidget {
               image: DecorationImage(
                   image: AssetImage('assets/images/bg.png'),
                   fit: BoxFit.cover)),
-          child: Scaffold(
-              extendBody: true,
-              drawer: SharedDrawer(user: cubit.userData),
-              extendBodyBehindAppBar: cubit.pageIndex == 1 ? true : false,
-              backgroundColor: Colors.transparent,
-              appBar: cubit.pageIndex == 1
-                  ? cubit.exploreAppBar(context)
-                  : cubit.mainAppBar(context: context, width: size.width),
-              body: cubit.screens[cubit.pageIndex],
-              bottomNavigationBar: Container(
-                height: 90,
-                child: Stack(
-                  children: [
-                    CustomPaint(
-                      size: Size(size.width, 90),
-                      painter: BNBCustomPainter(),
-                    ),
-                    Center(
-                      heightFactor: 0.7,
-                      child: Container(
-                        height: 65,
-                        width: 65,
-                        child: FittedBox(
-                          child: FloatingActionButton(
-                              materialTapTargetSize:
-                                  MaterialTapTargetSize.shrinkWrap,
-                              backgroundColor:
-                                  Colord.mainColor.withOpacity(0.55),
-                              elevation: 0.1,
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          AddProjectScreen(user: user),
-                                    ));
-                              },
-                              child: NavigationIcon(
-                                imgUrl: 'assets/images/plus.png',
-                              )),
+          child: WillPopScope(
+            onWillPop: () async {
+              if (cubit.pageIndex != 0) {
+                cubit.changePageIndex(0);
+                return false;
+              } else {
+                return true;
+              }
+            },
+            child: Scaffold(
+                extendBody: true,
+                drawer: SharedDrawer(user: cubit.userData),
+                extendBodyBehindAppBar: cubit.pageIndex == 1 ? true : false,
+                backgroundColor: Colors.transparent,
+                appBar: cubit.pageIndex == 1
+                    ? cubit.exploreAppBar(context)
+                    : cubit.mainAppBar(context: context, width: size.width),
+                body: cubit.screens[cubit.pageIndex],
+                bottomNavigationBar: Container(
+                  height: 90,
+                  child: Stack(
+                    children: [
+                      CustomPaint(
+                        size: Size(size.width, 90),
+                        painter: BNBCustomPainter(),
+                      ),
+                      Center(
+                        heightFactor: 0.7,
+                        child: Container(
+                          height: 65,
+                          width: 65,
+                          child: FittedBox(
+                            child: FloatingActionButton(
+                                materialTapTargetSize:
+                                    MaterialTapTargetSize.shrinkWrap,
+                                backgroundColor:
+                                    Colord.mainColor.withOpacity(0.55),
+                                elevation: 0.1,
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            AddProjectScreen(user: user),
+                                      ));
+                                },
+                                child: NavigationIcon(
+                                  imgUrl: 'assets/images/plus.png',
+                                )),
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      width: size.width,
-                      height: 80,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          NavigationIcon(
-                            imgUrl: 'assets/images/home.png',
-                            onPressed: () {
-                              cubit.changePageIndex(0);
-                            },
-                          ),
-                          NavigationIcon(
-                            imgUrl: 'assets/images/service.png',
-                            onPressed: () {
-                              cubit.changePageIndex(1);
-                            },
-                          ),
-                          SizedBox(
-                            width: size.width * 0.20,
-                          ),
-                          NavigationIcon(
-                            imgUrl: 'assets/images/chat.png',
-                            onPressed: () {
-                              cubit.changePageIndex(2);
-                            },
-                          ),
-                          NavigationIcon(
-                            imgUrl: 'assets/images/user.png',
-                            onPressed: () {
-                              cubit.changePageIndex(3);
-                            },
-                          ),
-                        ],
+                      Container(
+                        width: size.width,
+                        height: 80,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            NavigationIcon(
+                              imgUrl: 'assets/images/home.png',
+                              onPressed: () {
+                                cubit.changePageIndex(0);
+                              },
+                            ),
+                            NavigationIcon(
+                              imgUrl: 'assets/images/service.png',
+                              onPressed: () {
+                                cubit.changePageIndex(1);
+                              },
+                            ),
+                            SizedBox(
+                              width: size.width * 0.20,
+                            ),
+                            NavigationIcon(
+                              imgUrl: 'assets/images/chat.png',
+                              onPressed: () {
+                                cubit.changePageIndex(2);
+                              },
+                            ),
+                            NavigationIcon(
+                              imgUrl: 'assets/images/user.png',
+                              onPressed: () {
+                                cubit.changePageIndex(3);
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              )),
+                    ],
+                  ),
+                )),
+          ),
         );
       },
     );

@@ -28,10 +28,10 @@ class SettingScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           var cubit = SettingCubit.get(context);
-          return Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+          return SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

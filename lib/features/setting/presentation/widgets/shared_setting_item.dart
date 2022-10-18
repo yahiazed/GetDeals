@@ -13,18 +13,20 @@ class SharedSettingItem extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        height: 60,
+        //height: 60,
         child: Column(
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Row(
                 children: [
-                  Text(
-                    txt,
-                    style: t320BlackText(),
+                  Expanded(
+                    child: Text(
+                      txt,
+                      style: t320BlackText(),
+                    ),
                   ),
-                  Spacer(),
+                  // Spacer(),
                   const Icon(Icons.arrow_forward_ios)
                 ],
               ),

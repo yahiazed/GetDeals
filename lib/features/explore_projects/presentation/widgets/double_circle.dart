@@ -20,23 +20,29 @@ class SharedCircleWhite extends StatelessWidget {
       width: 91,
       height: 91,
       decoration: BoxDecoration(
-          border: Border.all(
-            width: 1,
-            color: Colord.whit,
-          ),
-          borderRadius: BorderRadius.circular(90)),
+        shape: BoxShape.circle,
+        border: Border.all(
+          width: 1,
+          color: Colord.whit,
+        ),
+        // borderRadius: BorderRadius.circular(90)
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            txtTop,
-            style: detail414whiteText(),
+          FittedBox(
+            child: Text(
+              txtTop,
+              style: detail414whiteText(),
+            ),
           ),
-          Text(
-            txtDown,
-            textAlign: TextAlign.center,
-            style: txt714white(),
+          FittedBox(
+            child: Text(
+              txtDown,
+              textAlign: TextAlign.center,
+              style: txt714white(),
+            ),
           ),
         ],
       ),

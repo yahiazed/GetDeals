@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:getdealss/config/bloc_observer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'config/app_localization.dart';
 import 'core/utiles/strings/app_strings.dart';
 import 'features/admin/cubit/admin_cubit.dart';
@@ -28,41 +31,39 @@ import 'features/service_provider/presentation/cubit/service_provider_cubit.dart
 
 import 'features/splash/presentation/pages/splash_screen.dart';
 
+//late SharedPreferences sharedPreferences;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Bloc.observer = AppBlocObserver();
-  await Firebase.initializeApp(
-
-      //options: DefaultFirebaseOptions.currentPlatform,
-      );
-
-  Widget widget;
-  UserModel? user;
-  User? firebaseUser = FirebaseAuth.instance.currentUser;
-  if (firebaseUser != null) {
-    final modelRef = FirebaseFirestore.instance
-        .collection('users')
-        .doc(firebaseUser.uid)
-        .withConverter<UserModel>(
-          fromFirestore: (snapshot, _) => UserModel.fromJson(snapshot.data()!),
-          toFirestore: (model, _) => model.toJson(),
-        );
-    user = await modelRef.get().then((value) => value.data()!);
-    if (user!.userKind == 1) {
-      final modelRef = FirebaseFirestore.instance
-          .collection('users')
-          .doc(firebaseUser.uid)
-          .withConverter<UserModel>(
-            fromFirestore: (snapshot, _) =>
-                UserModel.fromJsonServiceProvider(snapshot.data()!),
-            toFirestore: (model, _) => model.toJsonServiceProvider(),
-          );
-      user = await modelRef.get().then((value) => value.data()!);
-    }
-    widget = MainHomeScreen(user: user);
-  } else {
-    widget = RegisterScreen();
-  }
+  // Bloc.observer = AppBlocObserver();
+  // await Firebase.initializeApp();
+  // sharedPreferences = await SharedPreferences.getInstance();
+  // Widget widget;
+  // UserModel? user;
+  // User? firebaseUser = FirebaseAuth.instance.currentUser;
+  // if (firebaseUser != null) {
+  //   final modelRef = FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(firebaseUser.uid)
+  //       .withConverter<UserModel>(
+  //         fromFirestore: (snapshot, _) => UserModel.fromJson(snapshot.data()!),
+  //         toFirestore: (model, _) => model.toJson(),
+  //       );
+  //   user = await modelRef.get().then((value) => value.data()!);
+  //   if (user!.userKind == 1) {
+  //     final modelRef = FirebaseFirestore.instance
+  //         .collection('users')
+  //         .doc(firebaseUser.uid)
+  //         .withConverter<UserModel>(
+  //           fromFirestore: (snapshot, _) =>
+  //               UserModel.fromJsonServiceProvider(snapshot.data()!),
+  //           toFirestore: (model, _) => model.toJsonServiceProvider(),
+  //         );
+  //     user = await modelRef.get().then((value) => value.data()!);
+  //   }
+  //   widget = MainHomeScreen(user: user);
+  // } else {
+  //   widget = RegisterScreen();
+  // }
   // print(firebaseUser!.uid);
 
   // var query = await FirebaseFirestore.instance
@@ -73,8 +74,27 @@ void main() async {
   //     .then((value) async {
   //   print(value.docs[0].id);
   // });
+
+//   FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+//   NotificationSettings settings = await messaging.requestPermission(
+//     alert: true,
+//     announcement: false,
+//     badge: true,
+//     carPlay: false,
+//     criticalAlert: false,
+//     provisional: false,
+//     sound: true,
+//   );
+// // use the returned token to send messages to users from your custom server
+//   String? token = await messaging.getToken(
+//       //vapidKey: "BGpdLRs......",
+//       );
+//   print('===========================');
+//   print(token);
+
   runApp(MyApp(
-    widget: widget,
+    widget: RegisterScreen(),
   ));
 }
 
@@ -108,6 +128,7 @@ class MyApp extends StatelessWidget {
           )
         ],
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: AppStrings.appName,
           theme: ThemeData(
               primarySwatch: Colors.blue,

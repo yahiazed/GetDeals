@@ -126,5 +126,12 @@
     "notify": "اشعارات المشاريع",
     "support": "الدعم الفني",
     "orders": "الخدمات المطلوبة من الموقع",
-    "Send To Owner To Get Permission": "تم ارسال اشعار للمالك للحصول على اذن للتحميل"
+    "Send To Owner To Get Permission": "تم ارسال اشعار للمالك للحصول على اذن للتحميل",
+    "Need A Permission To Get": "اريد اذن للحصول على",
+    "Files": "ملفات",
+    "Accept": "قبول",
+    "Refuse": "رفض",
+    "Accept To Get Project Files": "لقد قبلت الحصول على ملفات المشرع",
+    "Reject To Get Project Files": "لقد رفض الحصول على ملفات المشرع",
+    "No Project You Explore Yet!!": "لا يوجد مشاريع تواصلت من اجلها"
 }

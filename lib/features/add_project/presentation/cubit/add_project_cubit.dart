@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,7 +11,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../register/domain/entities/user_model.dart';
 import '../../domain/post_model.dart';
-
+import 'package:http/http.dart' as http;
 part 'add_project_state.dart';
 
 class AddProjectCubit extends Cubit<AddProjectState> {
@@ -185,7 +186,10 @@ class AddProjectCubit extends Cubit<AddProjectState> {
           projectDate: DateTime.now().toString(),
           projectState: projectState,
         ))
-        .then((value) {
+        .then((value) async {
+      print('==============');
+      print(projectKind);
+
       emit(SuccessAddNewProjectState());
       pickedFilesList.clear();
       pickedImagesList.clear();
@@ -196,5 +200,39 @@ class AddProjectCubit extends Cubit<AddProjectState> {
     });
 
     if (photosUrls.isNotEmpty && downloadFilesUrls.isNotEmpty) {}
+  }
+
+  int _messageCount = 0;
+  String constructFCMPayload(String? topic) {
+    _messageCount++;
+    return jsonEncode({
+      'token': topic,
+      'data': {
+        'via': 'FlutterFire Cloud Messaging!!!',
+        'count': _messageCount.toString(),
+        'token': topic
+      },
+      'notification': {
+        'title': 'Hello FlutterFire!',
+        'body': 'This notification (#$_messageCount) was created via FCM!',
+      },
+    });
+  }
+
+  final server = 'AIzaSyD_-AL7M1GPCJD23cnUWS9R6Rjj0QqjcYg';
+  Future f({required String topic}) async {
+    try {
+      await http.post(
+        Uri.parse('https://api.rnfirebase.io/messaging/send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Authorization": 'key=$server'
+        },
+        body: constructFCMPayload(topic),
+      );
+      print('FCM request for device sent!');
+    } catch (e) {
+      print(e);
+    }
   }
 }

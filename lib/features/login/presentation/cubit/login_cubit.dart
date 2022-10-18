@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../register/domain/entities/user_model.dart';
@@ -23,6 +24,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future<void> getUserData() async {
     emit(StartGetUserData());
+
     final modelRef = FirebaseFirestore.instance
         .collection('users')
         .doc(getLoggedInUser().uid)
@@ -30,27 +32,35 @@ class LoginCubit extends Cubit<LoginState> {
           fromFirestore: (snapshot, _) => UserModel.fromJson(snapshot.data()!),
           toFirestore: (model, _) => model.toJson(),
         );
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    String? token = await messaging.getToken();
+    modelRef.update({'token': token}).whenComplete(() async {
+      final DocumentSnapshot<Map<String, dynamic>> doc = await FirebaseFirestore
+          .instance
+          .collection('users')
+          .doc(getLoggedInUser().uid)
+          .get();
 
-    final DocumentSnapshot<Map<String, dynamic>> doc = await FirebaseFirestore
-        .instance
-        .collection('users')
-        .doc(getLoggedInUser().uid)
-        .get();
-
-    if (doc.exists) {
-      emit(UserStartExistState());
-      userModel = UserModel.fromJson(doc.data()!);
-      emit(UserExistState(userData: userModel));
-    } else {
-      emit(UserNotExistState());
-    }
+      if (doc.exists) {
+        emit(UserStartExistState());
+        userModel = UserModel.fromJson(doc.data()!);
+        userModel.interests?.split('--').forEach((element) async {
+          // subscribe to topic on each app start-up
+          print('==================+===============$element');
+          await FirebaseMessaging.instance.subscribeToTopic(element);
+        });
+        emit(UserExistState(userData: userModel));
+      } else {
+        emit(UserNotExistState());
+      }
+    });
   }
 
   Future<void> submitPhoneNumber(String phoneNumber) async {
     emit(LoginLoadingState());
 
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: '+2$phoneNumber',
+      phoneNumber: '+966$phoneNumber',
       timeout: const Duration(seconds: 14),
       verificationCompleted: verificationCompleted,
       verificationFailed: verificationFailed,

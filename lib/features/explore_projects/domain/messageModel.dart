@@ -9,6 +9,9 @@ class MessageModel {
   String senderId;
   String receiverId;
   String? imageUrl;
+  String? type;
+  String? projectId;
+
   MessageModel({
     required this.message,
     required this.date,
@@ -17,6 +20,8 @@ class MessageModel {
     required this.senderId,
     required this.receiverId,
     this.imageUrl,
+    this.type,
+    this.projectId,
   });
 
   Map<String, dynamic> toJson() {
@@ -28,6 +33,8 @@ class MessageModel {
       'senderId': senderId,
       'receiverId': receiverId,
       'imageUrl': imageUrl,
+      'type': type,
+      'projectId': projectId
     };
   }
 
@@ -40,6 +47,8 @@ class MessageModel {
       senderId: map['senderId'] as String,
       receiverId: map['receiverId'] as String,
       imageUrl: map['imageUrl'] != null ? map['imageUrl'] as String : null,
+      type: map['type'] != null ? map['type'] as String : null,
+      projectId: map['projectId'] != null ? map['projectId'] as String : null,
     );
   }
 }

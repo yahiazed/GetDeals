@@ -26,12 +26,19 @@ class BodyStack extends StatelessWidget {
         GestureDetector(
           onTap: () => showAlert(context),
           child: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: NetworkImage(
-                    project.imgUrls.split(',').first,
-                  ),
-                  fit: BoxFit.cover),
+            // ignore: prefer_const_constructors
+            decoration: BoxDecoration(color: Colors.black
+                // image: DecorationImage(
+                //     image: NetworkImage(
+                //       project.imgUrls.split(',').first,
+                //     ),
+                //     fit: BoxFit.cover),
+                ),
+            child: Center(
+              child: Image.network(
+                project.imgUrls.split(',').first,
+                // fit: BoxFit.cover,
+              ),
             ),
           ),
         ),
@@ -96,77 +103,83 @@ class BodyStack extends StatelessWidget {
       insetPadding: EdgeInsets.zero,
       contentPadding: EdgeInsets.zero,
       clipBehavior: Clip.antiAliasWithSaveLayer,
-      content: Container(
-        width: size.width,
-        height: size.height * 0.40,
-        color: Colors.transparent,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+      content: GestureDetector(
+        onTap: () => Navigator.pop(context),
+        child: Center(
+          child: Container(
+            width: size.width,
+            //height: size.height * 0.40,
+            margin: EdgeInsets.only(top: size.height * 0.30),
+            color: Colors.transparent,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SharedCircleWhite(
-                    txtTop: project.projectKind.tr(context),
-                    txtDown: "Project Type".tr(context)),
-                SharedCircleWhite(
-                    txtTop: project.projectPlace,
-                    txtDown: "region".tr(context)),
-                SharedCircleWhite(
-                    txtTop: project.projectDuration,
-                    txtDown: "Duration".tr(context)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SharedCircleWhite(
+                        txtTop: project.projectKind.tr(context),
+                        txtDown: "Project Type".tr(context)),
+                    SharedCircleWhite(
+                        txtTop: project.projectPlace,
+                        txtDown: "region".tr(context)),
+                    SharedCircleWhite(
+                        txtTop: project.projectDuration,
+                        txtDown: "Duration".tr(context)),
+                  ],
+                ),
+                const SizedBox(
+                  height: 32,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SharedCircleWhite(
+                        txtTop: project.projectPartnerNumber,
+                        txtDown: "number of partners".tr(context)),
+                    SharedCircleWhite(
+                        txtTop: NumberFormat.compactCurrency(
+                          decimalDigits: 2,
+                          symbol: '',
+                        ).format(int.parse(project.projectSumSales)),
+                        txtDown: "Total sales".tr(context)),
+                    SharedCircleWhite(
+                        txtTop: NumberFormat.compactCurrency(
+                          decimalDigits: 2,
+                          symbol: '',
+                        ).format(int.parse(project.projectSubnetProfit)),
+                        txtDown: "Net profit".tr(context)),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 15.0, vertical: 32),
+                  child: Container(
+                      //height: 56,
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 1, color: Colord.whit),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(42))),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 25.0, vertical: 10),
+                        child: RichText(
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            text: TextSpan(
+                                text: "Reason of sell".tr(context),
+                                style: txt714white(),
+                                children: [
+                                  TextSpan(
+                                    text: project.projectReasonOfPay,
+                                    style: detail414whiteText(),
+                                  )
+                                ])),
+                      )),
+                )
               ],
             ),
-            const SizedBox(
-              height: 32,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SharedCircleWhite(
-                    txtTop: project.projectPartnerNumber,
-                    txtDown: "number of partners".tr(context)),
-                SharedCircleWhite(
-                    txtTop: NumberFormat.compactCurrency(
-                      decimalDigits: 2,
-                      symbol: '',
-                    ).format(int.parse(project.projectSumSales)),
-                    txtDown: "Total sales".tr(context)),
-                SharedCircleWhite(
-                    txtTop: NumberFormat.compactCurrency(
-                      decimalDigits: 2,
-                      symbol: '',
-                    ).format(int.parse(project.projectSubnetProfit)),
-                    txtDown: "Net profit".tr(context)),
-              ],
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 32),
-              child: Container(
-                  //height: 56,
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1, color: Colord.whit),
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(42))),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 25.0, vertical: 10),
-                    child: RichText(
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        text: TextSpan(
-                            text: "Reason of sell".tr(context),
-                            style: txt714white(),
-                            children: [
-                              TextSpan(
-                                text: project.projectReasonOfPay,
-                                style: detail414whiteText(),
-                              )
-                            ])),
-                  )),
-            )
-          ],
+          ),
         ),
       ),
     );

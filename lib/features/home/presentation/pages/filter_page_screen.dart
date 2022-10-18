@@ -13,6 +13,7 @@ import '../../../../core/utiles/shared_widget/shaps.dart';
 import '../../../../core/utiles/shared_widget/title.dart';
 import '../../../../core/utiles/styles/text_style.dart';
 import '../../../add_project/domain/post_model.dart';
+import '../../../explore_projects/presentation/pages/project_details.dart';
 import '../../../register/domain/entities/user_model.dart';
 
 class FilterScreen extends StatelessWidget {
@@ -87,7 +88,7 @@ class FilterScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Container(
-                      height: 500,
+                      height: size.height,
                       child: FirestoreQueryBuilder(
                           query: query,
                           pageSize: 15,
@@ -116,41 +117,53 @@ class FilterScreen extends StatelessWidget {
                                     snapshot.fetchMore();
                                   }
                                   final project = snapshot.docs[index].data();
-                                  return Padding(
-                                    padding:
-                                        const EdgeInsets.only(bottom: 10.0),
-                                    child: Container(
-                                      width: 181,
-                                      height: 208,
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      decoration: BoxDecoration(
-                                        color: Colord.bla,
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(11),
-                                        ),
-                                        image: DecorationImage(
-                                          image: NetworkImage(
-                                            project.imgUrls.split(',').first,
+                                  return GestureDetector(
+                                    onTap: () {
+                                      navigateTo(
+                                          context,
+                                          ProjectDetailsScreen(
+                                            project: project,
+                                            user: user,
+                                            projectId: snapshot.docs[index].id,
+                                          ));
+                                    },
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 10.0),
+                                      child: Container(
+                                        width: 181,
+                                        height: 208,
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
+                                        decoration: BoxDecoration(
+                                          color: Colord.bla,
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(11),
                                           ),
-                                          opacity: 0.75,
-                                          fit: BoxFit.cover,
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                              project.imgUrls.split(',').first,
+                                            ),
+                                            opacity: 0.75,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
+                                        child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                project.projectName,
+                                                style: nameMeduim16white(),
+                                              ),
+                                              Text(
+                                                "المبلغ:${project.projectSumSales} ريال",
+                                                style: txtMeduim13white(),
+                                              ),
+                                            ]),
                                       ),
-                                      child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              project.projectName,
-                                              style: nameMeduim16white(),
-                                            ),
-                                            Text(
-                                              "المبلغ:${project.projectSumSales} ريال",
-                                              style: txtMeduim13white(),
-                                            ),
-                                          ]),
                                     ),
                                   );
                                 });

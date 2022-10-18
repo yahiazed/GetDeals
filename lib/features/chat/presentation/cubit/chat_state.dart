@@ -12,3 +12,11 @@ class ChatInitial extends ChatState {}
 class StartSendGetDealMessage extends ChatState {}
 
 class EndSendGetDealMessage extends ChatState {}
+
+class StartUploadImage extends ChatState {}
+
+class EndUploadImage extends ChatState {}
+
+class StartGetCachedMessages extends ChatState {}
+
+class EndGetCachedMessages extends ChatState {}

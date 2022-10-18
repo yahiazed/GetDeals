@@ -232,7 +232,7 @@ class RegisterServiceProviderScreen extends StatelessWidget {
                                     horizontal: 34.0),
                                 child: TextButton(
                                   onPressed: () {
-                                    navigateTo(context, const LoginScreen());
+                                    navigateTo(context, LoginScreen());
                                   },
                                   child: Text(
                                     "haveAccount".tr(context),

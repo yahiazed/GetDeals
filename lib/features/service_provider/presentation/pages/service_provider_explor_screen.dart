@@ -89,13 +89,13 @@ class ServiceProviderScreen extends StatelessWidget {
                   height: 34,
                 ),
                 Container(
-                  height: 46,
+                  height: 50,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: [
                       Container(
                         height: 50,
-                        width: 100,
+                        width: 120,
                         child: SharedDropdown(
                           dropdownValue: cubit.experienceskind,
                           values: cubit.experienceskindList,
@@ -106,12 +106,10 @@ class ServiceProviderScreen extends StatelessWidget {
                           },
                         ),
                       ),
-                      const SizedBox(
-                        width: 10,
-                      ),
+
                       Container(
                         height: 50,
-                        width: 150,
+                        width: 200,
                         child: SharedDropdown(
                           dropdownValue: cubit.specialist,
                           values: cubit.specialistList,
@@ -196,7 +194,7 @@ class ServiceProviderScreen extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: Container(
-                          height: 556,
+                          //  height: 556,
                           child: GridView.builder(
                               shrinkWrap: true,
                               physics: const BouncingScrollPhysics(),

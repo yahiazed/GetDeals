@@ -14,14 +14,17 @@ dependencies:
   cloud_firestore: ^3.4.9
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
+  device_preview: ^1.1.0
   equatable: ^2.0.5
   file_picker: ^5.2.0+1
   firebase_auth: ^3.10.0
   firebase_core: ^1.23.0
+  firebase_messaging: ^13.1.0
   firebase_storage: ^10.3.10
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
+  flutter_launcher_icons: ^0.10.0
   flutter_localizations:
     sdk: flutter
   flutter_markdown: ^0.6.12
@@ -37,14 +40,19 @@ dependencies:
   intl: ^0.17.0
   multi_select_flutter: ^4.1.2
   path_drawing: ^1.0.1
+  path_provider: ^2.0.11
   restart_app: ^1.1.0+1
-  shared_preferences: ^2.0.15
+  url_launcher: ^6.1.6
+  uuid: ^3.0.6
 
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
-
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logo.png"
 flutter:
   uses-material-design: true
   assets:

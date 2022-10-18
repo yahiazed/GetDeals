@@ -77,7 +77,7 @@ class RegisterScreen extends StatelessWidget {
         if (state is AddingNewUserSuccessState) {
           CustomSnackBar().showSuccessSnackBar(
               message: 'تم انشاء الحساب بنجاح', context: context);
-          Navigator.of(context).push(
+          Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (context) =>
                   MainHomeScreen(user: RegisterCubit.get(context).userModel),
@@ -303,8 +303,7 @@ class RegisterScreen extends StatelessWidget {
                                           horizontal: 34.0),
                                       child: TextButton(
                                         onPressed: () {
-                                          navigateTo(
-                                              context, const LoginScreen());
+                                          navigateTo(context, LoginScreen());
                                         },
                                         child: Text(
                                           "haveAccount".tr(context),
@@ -385,7 +384,7 @@ class RegisterScreen extends StatelessWidget {
                                       Expanded(
                                         child: Text(
                                           'otp'.tr(context) +
-                                              '+2' +
+                                              '+966' +
                                               phoneController.text,
                                           style: txtDrawerbase516TitlesText(),
                                         ),

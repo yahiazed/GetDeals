@@ -325,6 +325,7 @@ class AddProjectScreen extends StatelessWidget {
                           ? () {
                               if (addProjectFormKey.currentState!.validate()) {
                                 // navigateTo(context, PaymentScreen());
+
                                 cubit.AddingNewProject(
                                     projectName: projectNameController.text,
                                     projectState: projectStateController.text,
@@ -343,9 +344,7 @@ class AddProjectScreen extends StatelessWidget {
                                         projectDescriptionController.text);
                               }
                             }
-                          : () {
-                              print('object......' +
-                                  cubit.pickedFilesList.toString());
+                          : () async {
                               cubit.pickedFilesList
                                   .toString()
                                   .split(',')

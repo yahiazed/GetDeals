@@ -171,8 +171,7 @@ class RegisterServiceProviderSecondScreen extends StatelessWidget {
                                           horizontal: 34.0),
                                       child: TextButton(
                                         onPressed: () {
-                                          navigateTo(
-                                              context, const LoginScreen());
+                                          navigateTo(context, LoginScreen());
                                         },
                                         child: Text(
                                           "haveAccount".tr(context),
@@ -212,7 +211,7 @@ class RegisterServiceProviderSecondScreen extends StatelessWidget {
                                       Expanded(
                                         flex: 2,
                                         child: Text(
-                                          '${'otp'.tr(context)}+2${cubit.phoneNumber}',
+                                          '${'otp'.tr(context)}+966${cubit.phoneNumber}',
                                           style: txtDrawerbase516TitlesText(),
                                         ),
                                       ),

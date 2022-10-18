@@ -14,6 +14,7 @@ class UserModel {
   String? specialist;
   String? serviceProviderKind;
   String? serviceDescription;
+  String? token;
   num? rate;
   num? hourPrice;
 
@@ -28,7 +29,8 @@ class UserModel {
             photo: json['photo'],
             phoneNumber: json['phoneNumber'],
             interests: json['interests'],
-            userKind: json['userKind']);
+            userKind: json['userKind'],
+            token: json['token']);
   UserModel.fromJsonServiceProvider(Map<String, dynamic> json)
       : this(
           age: json['age'],
@@ -45,6 +47,7 @@ class UserModel {
           serviceProviderKind: json['serviceProviderKind'],
           specialist: json['specialist'],
           userKind: json['userKind'],
+          token: json['token'],
           rate: json['rate'] ?? 0,
           hourPrice: json['hourPrice'] ?? 0,
         );
@@ -60,7 +63,8 @@ class UserModel {
       'interests': interests,
       'photo': photo,
       'phoneNumber': phoneNumber,
-      'userKind': userKind
+      'userKind': userKind,
+      'token': token
     };
   }
 
@@ -80,6 +84,7 @@ class UserModel {
       'serviceProviderKind': serviceProviderKind,
       'specialist': specialist,
       'userKind': userKind,
+      'token': token,
       'rate': rate ?? 0,
       'hourPrice': hourPrice ?? 0
     };
@@ -101,5 +106,6 @@ class UserModel {
       this.specialist,
       this.userKind,
       this.rate,
+      this.token,
       this.hourPrice});
 }

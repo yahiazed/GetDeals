@@ -149,6 +149,7 @@ class HomeBaseScreen extends StatelessWidget {
                                   child: Container(
                                     height: 163,
                                     width: 272,
+
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
                                     decoration: const BoxDecoration(
                                         borderRadius: BorderRadius.all(
@@ -167,7 +168,7 @@ class HomeBaseScreen extends StatelessWidget {
                                         ),
                                       ),
                                       errorWidget: (context, url, error) =>
-                                          Icon(Icons.error),
+                                          const Icon(Icons.error),
                                     ),
 
                                     // , Image.network(
@@ -308,7 +309,8 @@ class HomeBaseScreen extends StatelessWidget {
                   alignment: AlignmentDirectional.centerStart,
                   child: Container(
                     width: size.width * 0.85,
-                    height: 170,
+                    padding: const EdgeInsets.all(5),
+                    constraints: const BoxConstraints(minHeight: 170),
                     decoration: const BoxDecoration(
                       color: Colord.thirdColor,
                       borderRadius: BorderRadiusDirectional.only(

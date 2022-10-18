@@ -86,8 +86,8 @@ class ServiceProviderCubit extends Cubit<ServiceProviderState> {
         .where('userKind', isEqualTo: 1)
         .where('serviceProviderKind', isEqualTo: experienceskind)
         .where('specialist', isEqualTo: specialist)
-        .where('rate', isLessThanOrEqualTo: experiencesRate)
-        .orderBy('rate')
+        .where('rate', isEqualTo: num.parse(experiencesRate))
+        // .orderBy('rate')
         // .orderBy('projectDate', descending: true)
         .withConverter<UserModel>(
           fromFirestore: (snapshot, _) =>

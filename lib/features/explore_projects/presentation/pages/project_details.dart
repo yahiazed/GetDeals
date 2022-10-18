@@ -78,7 +78,7 @@ class ProjectDetailsScreen extends StatelessWidget {
               },
               builder: (context, state) {
                 var cubit = ExploreProjectsCubit.get(context);
-
+                cubit.projectId = projectId;
                 return SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   child: Column(
@@ -264,13 +264,24 @@ class ProjectDetailsScreen extends StatelessWidget {
                               itemCount: project.filesUrls.split(',').length,
                               itemBuilder: (context, index) => TextButton(
                                 onPressed: () async {
-                                  await cubit.sendNotification(
-                                      senderUser: user,
-                                      receiverId: project.userUid,
-                                      projectModel: project,
-                                      projectId: projectId!,
-                                      notifyMsg: 'notifyMsg',
-                                      context: context);
+                                  if (user.uid != project.userUid) {
+                                    await cubit
+                                        .sendGetPermission(
+                                            project: project,
+                                            sender: user,
+                                            context: context,
+                                            fileUrl: project.filesUrls
+                                                .split(',')[index],
+                                            filename: project.filesNames
+                                                .split(',')[index])
+                                        .whenComplete(() {});
+                                  }
+                                  // navigateTo(
+                                  //     context,
+                                  //     ChatDetailScreen(
+                                  //       sender: user,
+                                  //       receiverUID: project.userUid,
+                                  //     ));
                                 },
                                 child: Text(
                                   project.filesNames.split(',')[index],

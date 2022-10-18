@@ -24,6 +24,7 @@ import '../../../home/presentation/pages/home_base_screen.dart';
 import '../../../register/domain/entities/user_model.dart';
 import '../../../setting/presentation/pages/Setting_screen.dart';
 import '../../../admin/admin.dart';
+import '../pages/latest_operation_screen.dart';
 import '../pages/notify_screen.dart';
 
 part 'main_home_state.dart';
@@ -94,7 +95,7 @@ class MainHomeCubit extends Cubit<MainHomeState> {
                 } else {
                   navigateTo(
                       context,
-                      NotifyScreen(
+                      LatestOperations(
                         user: userData,
                       ));
                 }

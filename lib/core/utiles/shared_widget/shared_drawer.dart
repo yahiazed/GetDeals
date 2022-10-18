@@ -6,6 +6,7 @@ import 'package:getdealss/core/utiles/shared_widget/shared_drawer_nav.dart';
 
 import '../../../features/edit_profile/presentation/pages/edit_profile_Screen.dart';
 import '../../../features/login/presentation/pages/login_screen.dart';
+import '../../../features/main_home/presentation/pages/latest_operation_screen.dart';
 import '../../../features/register/domain/entities/user_model.dart';
 import '../colors/my_color.dart';
 import '../styles/text_style.dart';
@@ -71,7 +72,7 @@ class SharedDrawer extends StatelessWidget {
                   txt: "My Projects".tr(context),
                   icon: FontAwesomeIcons.shoppingBag),
               SharedDrawerNavItem(
-                  widget: EditProfile(
+                  widget: LatestOperations(
                     user: user,
                   ),
                   txt: "Latest Operations".tr(context),

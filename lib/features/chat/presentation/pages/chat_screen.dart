@@ -21,13 +21,16 @@ class ChatScreen extends StatelessWidget {
     final streamQuery = FirebaseFirestore.instance
         .collection('users')
         .doc(user.uid)
-        .collection('userschat');
+        .collection('userschat')
+        .orderBy('date', descending: true);
+
     //  print(streamQuery);
     print(user.uid);
     return BlocConsumer<ChatCubit, ChatState>(
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = ChatCubit.get(context);
+
         return Container(
           color: Colord.mainColor,
           child: Container(

@@ -19,11 +19,13 @@ class SharedHeadMore extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 26.0, vertical: 0),
       child: Row(
         children: [
-          Text(
-            txtHead.tr(context),
-            style: head520BlackLine(),
+          Expanded(
+            child: Text(
+              txtHead.tr(context),
+              style: head520BlackLine(),
+            ),
           ),
-          Spacer(),
+          // Spacer(),
           onPressed != null
               ? TextButton(
                   onPressed: onPressed,
